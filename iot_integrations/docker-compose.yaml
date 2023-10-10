@@ -1,0 +1,48 @@
+version: '3'
+
+services:
+  sqlite:
+    image: python:3.8
+    command: ["python", "manage.py", "migrate"]
+    volumes:
+      - .:/app
+    environment:
+      - DJANGO_DB_BACKEND=django.db.backends.sqlite3
+      - DJANGO_DB_NAME=/app/db.sqlite3
+
+  runserver:
+    build:
+      context: .
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    command: ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+    depends_on:
+      - sqlite
+      - mqtt
+
+  subscribe_iot_data:
+    build:
+      context: .
+    volumes:
+      - .:/app
+    command: ["python", "manage.py", "subscribe_iot_data"]
+    depends_on:
+      - sqlite
+      - mqtt
+
+  fetch_iotdata:
+    build:
+      context: .
+    volumes:
+      - .:/app
+    command: ["python", "manage.py", "fetch_iot_data"]
+    depends_on:
+      - sqlite
+      - mqtt
+
+  mqtt:
+    image: eclipse-mosquitto
+    ports:
+      - "1883:1883"
