@@ -4,6 +4,8 @@
 This document outlines the design and functionality of the "iot_simulator" Django application, particularly focusing on the "data_logger" app. The application is designed to manage and record IoT data within a hotel environment.
 
 ### Data Model
+####  ER Diagram
+![Alt](https://github.com/NandarLinn/iot_simulator/blob/main/demo_images/1.png)
 
 #### Hotel Model
   - name: This CharField represents the name of the hotel.
@@ -26,6 +28,8 @@ This document outlines the design and functionality of the "iot_simulator" Djang
   - value: This CharField (max length: 20) stores the actual value of the recorded data.
     The IoTData model represents data collected from IoT devices installed in individual rooms. Each data entry is associated with a specific room and includes information about the date and time of recording, the device's ID, the data point category, and the recorded value.
 
+To review the table schema, kindly refer to the [Model](https://github.com/NandarLinn/iot_simulator/blob/main/iot_integrations/data_logger/models.py) file.
+
 ### Database Setup
 
 Django's Object-Relational Mapping (ORM) will create the necessary database tables based on the defined models. Use the following commands to generate and apply database migrations:
@@ -39,11 +43,11 @@ This will create the database tables required to store hotel, floor, room, and I
 
 You can populate the database with hotel-related data either via the Django admin panel or by using CSV data. Use the following script to import data from a CSV file:
 ```sh
-python manage.py import_hotel_floor_room_data /your_hotel_floor_room_data
+python manage.py import_hotel_floor_room_data /your_hotel_floor_room_data.csv
 ```
 This script allows you to conveniently import data into the application.
-
-This will start the development server, making the application accessible via a web browser,
+This will start the development server, making the application accessible via a web browser.
+Kindly refer to the [import_hotel_room_floor.py](https://github.com/NandarLinn/iot_simulator/blob/main/iot_integrations/data_logger/management/commands/import_hotel_floor_room.py) file.
 
 ### API Endpoints
 
@@ -56,6 +60,7 @@ The application provides the following API endpoints for data retrieval:
 /rooms/<room_id>/data/life_being/: Retrieve Life Being sensor data for a room.
 /rooms/<room_id>/data/iaq/: Retrieve Indoor Air Quality (IAQ) sensor data for a room.
 ```
+
 These endpoints allow users to interact with the data stored in the application through HTTP requests.
 
 ### Subscribe IoTData
@@ -66,7 +71,12 @@ To execute the MQTT Subscriber script, use the following command:
 ```sh
 python manage.py subscribe_iot_data
 ```
+Kindly refer to the [subscribe_iot_data.py](https://github.com/NandarLinn/iot_simulator/blob/main/iot_integrations/data_logger/management/subscribe_iot_data.py) file.
 This script is intended for use within a Django project where real-time IoT data needs to be captured and logged in a database.
+
+![Alt](https://github.com/NandarLinn/iot_simulator/blob/main/demo_images/2.png)
+
+
 
 ### MQTT Publisher
 
@@ -76,9 +86,17 @@ To execute the MQTT Publisher script, use the following command:
 ```sh
 python manage.py fetch_iot_data
 ```
+Kindly refer to the [fetch_iot_data.py](https://github.com/NandarLinn/iot_simulator/blob/main/iot_integrations/data_logger/management/commands/fetch_iot_data.py) file.
+
+![Alt](https://github.com/NandarLinn/iot_simulator/blob/main/demo_images/3.png)
 
 ## Building chat bot using openai, langchain and gradio interface
 The current database is connected to Langchain, a tool known as large language models (LLMs), that helps connect advanced language software, with other sources of information, like databases. But there has limitation for free api key.
+Important: To test chatbot api replace with your openai key because personal use for openai key is disable when repo is public to github:
+```sh
+OPENAI_KEY = YOUR-OPENAI-KEY
+```
+
 ```sh
 def handle(self, *args, **options):
         DB_URI = 'sqlite:///db.sqlite3'
@@ -108,6 +126,18 @@ python management.py chatbot
 docker-compose up --build --force-recreate
 ```
 To execute the server, use the following command:
+
+- For iot_simulator:
+  ```sh
+  http://0.0.0.0:8000/api
+  ```
+![Alt](https://github.com/NandarLinn/iot_simulator/blob/main/demo_images/djangoserver.mov)
+
+- For chatbot:
+  ```sh
+  http://0.0.0.0:7860
+  ```
+![Alt](https://github.com/NandarLinn/iot_simulator/blob/main/demo_images/4.png)
 
 ## Conclusion
 
