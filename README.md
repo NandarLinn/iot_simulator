@@ -47,7 +47,7 @@ python manage.py import_hotel_floor_room_data /your_hotel_floor_room_data.csv
 ```
 This script allows you to conveniently import data into the application.
 This will start the development server, making the application accessible via a web browser.
-Kindly refer to the [import_hotel_room_floor.py](https://github.com/NandarLinn/iot_simulator/blob/main/iot_integrations/data_logger/management/commands/import_hotel_floor_room.py) file.
+Kindly refer to the [import_hotel_floor_room.py](https://github.com/NandarLinn/iot_simulator/blob/main/iot_integrations/data_logger/management/commands/import_hotel_floor_room.py) file.
 
 ### API Endpoints
 
@@ -71,7 +71,7 @@ To execute the MQTT Subscriber script, use the following command:
 ```sh
 python manage.py subscribe_iot_data
 ```
-Kindly refer to the [subscribe_iot_data.py](https://github.com/NandarLinn/iot_simulator/blob/main/iot_integrations/data_logger/management/subscribe_iot_data.py) file.
+Kindly refer to the [subscribe_iot_data.py](https://github.com/NandarLinn/iot_simulator/blob/main/iot_integrations/data_logger/management/commands/subscribe_iot_data.py) file.
 This script is intended for use within a Django project where real-time IoT data needs to be captured and logged in a database.
 
 ![Alt](https://github.com/NandarLinn/iot_simulator/blob/main/demo_images/2.png)
