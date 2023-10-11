@@ -29,18 +29,18 @@ This document outlines the design and functionality of the "iot_simulator" Djang
 ### Database Setup
 
 Django's Object-Relational Mapping (ORM) will create the necessary database tables based on the defined models. Use the following commands to generate and apply database migrations:
-`
+```sh
 python manage.py makemigrations
 python manage.py migrate
-`
+```
 This will create the database tables required to store hotel, floor, room, and IoT data.
 
 ### Data Import
 
 You can populate the database with hotel-related data either via the Django admin panel or by using CSV data. Use the following script to import data from a CSV file:
-`
+```sh
 python manage.py import_hotel_floor_room_data /your_hotel_floor_room_data
-`
+```
 This script allows you to conveniently import data into the application.
 
 This will start the development server, making the application accessible via a web browser,
@@ -48,13 +48,14 @@ This will start the development server, making the application accessible via a 
 ### API Endpoints
 
 The application provides the following API endpoints for data retrieval:
-
+```sh
 /hotels/: Retrieve all hotels.
 /hotels/<hotel_id>/floors/: Access floors in a specific hotel.
 /floors/<floor_id>/rooms/: List rooms on a particular floor.
 /rooms/<room_id>/data/: Get IoT data for a specific room.
 /rooms/<room_id>/data/life_being/: Retrieve Life Being sensor data for a room.
 /rooms/<room_id>/data/iaq/: Retrieve Indoor Air Quality (IAQ) sensor data for a room.
+```
 These endpoints allow users to interact with the data stored in the application through HTTP requests.
 
 ### Subscribe IoTData
@@ -62,9 +63,9 @@ These endpoints allow users to interact with the data stored in the application 
 A Python script is provided to subscribe to MQTT data from a specified topic and store it in the Django database. The script uses the Paho MQTT client library to connect to an MQTT broker, receive messages, parse them into key-value pairs, and save relevant data to the IoTData model in the database.
 
 To execute the MQTT Subscriber script, use the following command:
-`
+```sh
 python manage.py subscribe_iot_data
-`
+```
 This script is intended for use within a Django project where real-time IoT data needs to be captured and logged in a database.
 
 ### MQTT Publisher
@@ -72,13 +73,13 @@ This script is intended for use within a Django project where real-time IoT data
 Another Python script is provided to publish IoT data from a CSV file to an MQTT broker. Ensure that the CSV file is located in the csv directory of your Django project. Before running the script, configure the MQTT broker by modifying the client.connect line within the handle function. By default, it connects to the public MQTT broker test.mosquitto.org on port 1883.
 
 To execute the MQTT Publisher script, use the following command:
-`
+```sh
 python manage.py fetch_iot_data
-`
+```
 
 ## Building chat bot using openai, langchain and gradio interface
 The current database is connected to Langchain, a tool known as large language models (LLMs), that helps connect advanced language software, with other sources of information, like databases. But there has limitation for free api key.
-`
+```sh
 def handle(self, *args, **options):
         DB_URI = 'sqlite:///db.sqlite3'
         OPENAI_KEY = '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'
@@ -97,15 +98,15 @@ def handle(self, *args, **options):
                 return "", chat_history
             msg.submit(respond, [msg, chatbot], [msg, chatbot])
         demo.launch()
-`
+```
 To execute the API, use the following command:
-`
+```sh
 python management.py chatbot
-`
+```
 ## Run iot_simulator app and chatbot using docker
-`
+```sh
 docker-compose up --build --force-recreate
-`
+```
 To execute the server, use the following command:
 
 ## Conclusion
