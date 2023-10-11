@@ -92,7 +92,7 @@ Kindly refer to the [fetch_iot_data.py](https://github.com/NandarLinn/iot_simula
 
 ## Building chat bot using openai, langchain and gradio interface
 The current database is connected to Langchain, a tool known as large language models (LLMs), that helps connect advanced language software, with other sources of information, like databases. But there has limitation for free api key.
-Important: To test chatbot api replace with your openai key because personal use for openai key is disable when repo is public to github:
+Important: To test chatbot api replace with your openai key because personal use for openai key is disable when repo is public to github as I bought API key for personal use.
 ```sh
 OPENAI_KEY = YOUR-OPENAI-KEY
 ```
