@@ -1,7 +1,6 @@
 import paho.mqtt.client as mqtt
-import re
 from django.core.management.base import BaseCommand
-from data_logger.models import IoTData  # Replace 'yourapp' with the actual name of your Django app
+from data_logger.models import IoTData
 from datetime import datetime, timezone
 import random
 
@@ -33,12 +32,13 @@ class Command(BaseCommand):
                 value = value.strip('"')
                 data_dict[key] = value
 
-            print('data_dict: ', data_dict)
             # Extract values from the dictionary
+            room_id = random.randint(1, 90)
             datetime_str = data_dict.get('datetime')
             device_id = data_dict.get('device_id')
             datapoint = data_dict.get('datapoint')
             value = data_dict.get('value')
+            print('room_id :', room_id)
             print('datetime_str: ', datetime_str)
             print('device_name: ', device_id)
             print('datapoint: ', datapoint)
@@ -53,7 +53,6 @@ class Command(BaseCommand):
 
             # Check if required values are not None
             if datetime_obj is not None and device_id is not None and datapoint is not None:
-                room_id = random.randint(1, 90)
                 mqtt_data = IoTData(
                     room_id=room_id,
                     datetime=datetime_obj,
