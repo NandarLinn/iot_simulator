@@ -131,7 +131,7 @@ To execute the server, use the following command:
   ```sh
   http://0.0.0.0:8000/api
   ```
-![Alt](https://github.com/NandarLinn/iot_simulator/blob/main/demo_images/djangoserver.mov)
+![Alt](https://github.com/NandarLinn/iot_simulator/blob/main/demo_images/djangoserver.gif)
 
 - For chatbot:
   ```sh
